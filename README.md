@@ -115,55 +115,209 @@ Android development
 
 # TASK-2 TO DO LIST Create a To-Do list app that allows users to add, edit, and delete tasks.
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .todo-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px;
+      font-size: 14px;
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      background-color: #10b981;
+      color: white;
+      cursor: pointer;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+    li span {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+    .actions button {
+      margin-left: 5px;
+      padding: 5px 8px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .edit-btn {
+      background: #f59e0b;
+      color: white;
+    }
+    .delete-btn {
+      background: #ef4444;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>To-Do List</h1>
+  <div class="todo-container">
+    <input type="text" id="taskInput" placeholder="Enter a new task" />
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
 
-  
-    return;kbox.addEventListener("click", function () {
-  li.classList.toggle("completed", checkbox.checked);
-  //add the function below
-  updateCounters();
-});
-editBtn.addEventListener("click", function () {
-  const update = prompt("Edit task:", taskSpan.textContent);
-  if (update !== null) {
-    taskSpan.textContent = update;
-    li.classList.remove("completed");
-    //add the code below
-    checkbox.checked = false;
-    updateCounters();
-  }
-});
+  <script>
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
 
-<img width="600" height="408" alt="image" src="https://github.com/user-attachments/assets/68c892ee-420f-4a4a-a1df-3e9f13c1ffb1" />
+    function addTask() {
+      const taskText = taskInput.value.trim();
+      if (taskText === '') return;
 
-deleteBtn.addEventListener("click", function () {
-  if (confirm("Are you sure you want to delete this task?")) {
-    li.remove();
-    updateCounters();
-  }
-});
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = taskText;
 
-<img width="600" height="375" alt="image" src="https://github.com/user-attachments/assets/5fdeb9eb-b85d-4c8b-ab46-691f15f2ea07" />
+      const actions = document.createElement('div');
+      actions.className = 'actions';
 
-# Add CSS
-body { 
-  background: rgb(0,0,0);
-  background: radial-gradient(circle, rgba(0,0,0,0.028124999999999956) 0%, rgba(253,187,45,1) 100%);
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin-top: 50px;
-}
-#todo-container {
-  background: rgb(41, 33, 33);
-  width: 400px;
-  margin: 0 auto;
-  border: 2px solid #0033ff;
-  padding: 20px;
-  color: white;
-  border-radius: 15px;
-}
-#todo-container {
-  background: rgb(41, 33, 33);
-  width: 400px;
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Edit';
+      editBtn.className = 'edit-btn';
+      editBtn.onclick = () => editTask(span);
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.onclick = () => li.remove();
+
+      actions.appendChild(editBtn);
+      actions.appendChild(deleteBtn);
+      li.appendChild(span);
+      li.appendChild(actions);
+      taskList.appendChild(li);
+
+      taskInput.value = '';
+    }
+
+    function editTask(span) {
+      const newTask = prompt('Edit your task:', span.textContent);
+      if (newTask !== null && newTask.trim() !== '') {
+        span.textContent = newTask.trim();
+      }
+    }
+  </script>
+</body>
+</html>
+
+#  TASK-3 Build a basic stopwatch app that displays minutes, seconds, and milliseconds and allows users to start, pause, and reset the timer.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stopwatch</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+    }
+
+    .timer {
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    .controls button {
+      padding: 0.75rem 1.5rem;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.1s ease;
+    }
+
+    .controls button:active {
+      transform: scale(0.95);
+    }
+
+    .start {
+      background: #10b981;
+      color: #fff;
+    }
+
+    .pause {
+      background: #f59e0b;
+      color: #fff;
+    }
+
+    .reset {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .controls button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer" id="display">00:00:000</div>
+  <div class="controls">
+    <button id="startBtn" class="start">Start</button>
+    <button id="pauseBtn" class="pause" disabled>Pause</button>
+    <button id="resetBtn" class="reset" disabled>Reset</button>
+  </div>
+
+  <script>
+    let startTime = 0;
+    let elapsed = 0;
+    let timerInterval = null;
 
     const display = document.getElementById("display");
     const startBtn = document.getElementById("startBtn");
@@ -186,7 +340,7 @@ body {
       timerInterval = setInterval(() => {
         elapsed = Date.now() - startTime;
         updateDisplay(elapsed);
-      }, 10); // Update every 10ms for milliseconds precision
+      }, 10); // update every 10ms
 
       startBtn.disabled = true;
       pauseBtn.disabled = false;
@@ -214,6 +368,10 @@ body {
   </script>
 </body>
 </html>
+
+  
+
+
 
 
 # TASK-4 Create a QR code scanner app that allows users to scan QR codes using their device's camera. Add feature to create new QR Codes.
