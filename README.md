@@ -45,6 +45,7 @@ C ÷ × − 7 8 9 + 4 5 6 = 1 2 3 0 .
 
 
 # TASK-2 TO DO LIST Create a To-Do list app that allows users to add, edit, and delete tasks.
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -292,7 +293,223 @@ margin-top: 10px;
 
 <img width="1328" height="1172" alt="image" src="https://github.com/user-attachments/assets/164a5558-5087-4933-b859-0e5107c55c27" />
 
+# TASK-3 Build a basic stopwatch app that displays minutes, seconds, and milliseconds and allows users to start, pause, and reset the timer.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stopwatch</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+    }
+
+    .timer {
+      font-size: 4rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    .controls button {
+      padding: 0.75rem 1.5rem;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.1s ease;
+    }
+
+    .controls button:active {
+      transform: scale(0.95);
+    }
+
+    .start {
+      background: #10b981;
+      color: #fff;
+    }
+
+    .pause {
+      background: #f59e0b;
+      color: #fff;
+    }
+
+    .reset {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .controls button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer" id="display">00:00:000</div>
+  <div class="controls">
+    <button id="startBtn" class="start">Start</button>
+    <button id="pauseBtn" class="pause" disabled>Pause</button>
+    <button id="resetBtn" class="reset" disabled>Reset</button>
+  </div>
+
+  <script>
+    let startTime = 0;
+    let elapsed = 0;
+    let timerInterval = null;
+
+    const display = document.getElementById("display");
+    const startBtn = document.getElementById("startBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    function updateDisplay(ms) {
+      const minutes = Math.floor(ms / 60000);
+      const seconds = Math.floor((ms % 60000) / 1000);
+      const milliseconds = ms % 1000;
+
+      display.textContent = `${String(minutes).padStart(2, "0")}:${String(
+        seconds
+      ).padStart(2, "0")}:${String(milliseconds).padStart(3, "0")}`;
+    }
+
+    function startTimer() {
+      startTime = Date.now() - elapsed;
+
+      timerInterval = setInterval(() => {
+        elapsed = Date.now() - startTime;
+        updateDisplay(elapsed);
+      }, 10); // Update every 10ms for milliseconds precision
+
+      startBtn.disabled = true;
+      pauseBtn.disabled = false;
+      resetBtn.disabled = false;
+    }
+
+    function pauseTimer() {
+      clearInterval(timerInterval);
+      startBtn.disabled = false;
+      pauseBtn.disabled = true;
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      elapsed = 0;
+      updateDisplay(elapsed);
+      startBtn.disabled = false;
+      pauseBtn.disabled = true;
+      resetBtn.disabled = true;
+    }
+
+    startBtn.addEventListener("click", startTimer);
+    pauseBtn.addEventListener("click", pauseTimer);
+    resetBtn.addEventListener("click", resetTimer);
+  </script>
+</body>
+</html>
 
 
+# TASK-4 Create a QR code scanner app that allows users to scan QR codes using their device's camera. Add feature to create new QR Codes.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Scanner & Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      padding: 20px;
+    }
+    #reader {
+      width: 300px;
+      margin: 0 auto;
+    }
+    #qrcode {
+      margin: 20px auto;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 6px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <h2>QR Code Scanner</h2>
+  <div id="reader"></div>
+  <p><strong>Scanned Result:</strong> <span id="result">None</span></p>
 
+  <h2>QR Code Generator</h2>
+  <input type="text" id="qrText" placeholder="Enter text to generate QR code" />
+  <br />
+  <button onclick="generateQRCode()">Generate QR Code</button>
+  <div id="qrcode"></div>
+
+  <script>
+    // QR Code Scanner
+    const resultElem = document.getElementById("result");
+
+    function onScanSuccess(decodedText) {
+      resultElem.textContent = decodedText;
+    }
+
+    const html5QrCode = new Html5Qrcode("reader");
+
+    Html5Qrcode.getCameras().then(cameras => {
+      if (cameras && cameras.length) {
+        html5QrCode.start(
+          cameras[0].id,
+          {
+            fps: 10,
+            qrbox: 250
+          },
+          onScanSuccess
+        );
+      }
+    }).catch(err => {
+      console.error("Camera error:", err);
+    });
+
+    // QR Code Generator
+    function generateQRCode() {
+      const qrText = document.getElementById("qrText").value;
+      document.getElementById("qrcode").innerHTML = ""; // Clear previous
+      new QRCode("qrcode", {
+        text: qrText,
+        width: 256,
+        height: 256
+      });
+    }
+  </script>
+</body>
+</html>
 
