@@ -113,6 +113,8 @@ Android development
 </body>
 </html>
 
+![WhatsApp Image 2025-07-17 at 22 34 33_2e2256cb](https://github.com/user-attachments/assets/7772b195-aa56-4f6d-baef-974fa2c66fe6)
+
 # TASK-2 TO DO LIST Create a To-Do list app that allows users to add, edit, and delete tasks.
 
 <!DOCTYPE html>
@@ -244,6 +246,8 @@ Android development
 </body>
 </html>
 
+![WhatsApp Image 2025-07-17 at 22 35 11_6724fa50](https://github.com/user-attachments/assets/407b73f1-0dbc-457a-a784-3258507cb32d)
+
 #  TASK-3 Build a basic stopwatch app that displays minutes, seconds, and milliseconds and allows users to start, pause, and reset the timer.
 
 <!DOCTYPE html>
@@ -371,6 +375,7 @@ Android development
 
   
 
+![WhatsApp Image 2025-07-17 at 22 35 21_32aa8dc0](https://github.com/user-attachments/assets/dec3435d-f6d2-4767-bb5b-d69bfce1c388)
 
 
 
@@ -468,3 +473,4 @@ Android development
 </body>
 </html>
 
+![WhatsApp Image 2025-07-17 at 22 35 33_09add689](https://github.com/user-attachments/assets/7daa68b2-7350-4b32-8d9a-e57892e3686d)
